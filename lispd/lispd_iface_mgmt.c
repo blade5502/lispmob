@@ -190,7 +190,7 @@ void process_nl_add_address (struct nlmsghdr *nlh)
     rt_length = IFA_PAYLOAD (nlh);
     for (;rt_length && RTA_OK (rth, rt_length); rth = RTA_NEXT (rth,rt_length))
     {
-        if (rth->rta_type == IFA_ADDRESS){
+        if (rth->rta_type == IFA_LOCAL){
             if (ifa->ifa_family == AF_INET){
                 memcpy (&(new_addr.address),(struct in_addr *)RTA_DATA(rth),sizeof(struct in_addr));
                 new_addr.afi = AF_INET;
@@ -402,7 +402,7 @@ void process_nl_del_address (struct nlmsghdr *nlh)
     rt_length = IFA_PAYLOAD (nlh);
     for (;rt_length && RTA_OK (rth, rt_length); rth = RTA_NEXT (rth,rt_length))
     {
-        if (rth->rta_type == IFA_ADDRESS){
+        if (rth->rta_type == IFA_LOCAL){
             if (ifa->ifa_family == AF_INET){
                 memcpy (&(new_addr.address),(struct in_addr *)RTA_DATA(rth),sizeof(struct in_addr));
                 new_addr.afi = AF_INET;
